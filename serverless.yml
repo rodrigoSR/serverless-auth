@@ -1,0 +1,26 @@
+service: auth
+frameworkVersion: "2 || 3"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: "20201221"
+  environment: ${file(env.json)}
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  addUser:
+    handler: handler.addUserHandler
+    events:
+      - http:
+          path: /
+          method: post
+  login:
+    handler: handler.loginHandler
+    events:
+      - http:
+          path: /login
+          method: post
