@@ -5,7 +5,7 @@ import { injectable } from "inversify";
 
 @injectable()
 export class JwtAdapter implements Encrypter, Decrypter {
-  private readonly secret = process.env.JWT_SECRET;
+  private readonly secret = process.env.JWT_SECRET || "secretkey";
 
   async encrypt(payload: Encrypter.Params): Promise<string> {
     return jwt.sign(payload, this.secret, { expiresIn: 120 });
